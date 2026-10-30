@@ -179,7 +179,6 @@ dotnet user-secrets set "ConnectionStrings:Postgres" "Host=localhost;Port=5432;D
 
 - Reemplazar `postgres` por el usuario configurado en PostgreSQL, si es diferente.
 - Reemplazar `TU_CONTRASEÑA` por la contraseña correspondiente.
-- No publicar las credenciales de conexión en GitHub.
 
 ### 5. Instalar Entity Framework Core CLI
 
