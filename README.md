@@ -124,8 +124,8 @@ Para instalar y ejecutar el proyecto se necesita:
 
 - [.NET SDK 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
 - [PostgreSQL 18](https://www.postgresql.org/download/).
-- [pgAdmin 4](https://www.pgadmin.org/download/) (recomendado).
-- Git (opcional).
+- [pgAdmin 4](https://www.pgadmin.org/download/).
+- Git.
 
 ## Instalación y configuración
 
