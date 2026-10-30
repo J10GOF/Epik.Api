@@ -1,0 +1,99 @@
+
+# ==========================================
+# EPIK - ASP.NET Core / .NET 10
+# ==========================================
+
+# Compilación y archivos temporales
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rtifacts/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+
+# Logs
+*.log
+logs/
+[Ll]ogs/
+
+# Archivos temporales
+*.tmp
+*.temp
+*.bak
+*.swp
+*.cache
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# SEGURIDAD Y CREDENCIALES
+# ==========================================
+
+# Archivos de variables de entorno
+.env
+.env.*
+!.env.example
+
+# Configuraciones locales con credenciales
+appsettings.Local.json
+appsettings.*.Local.json
+
+# Certificados y claves privadas
+*.pfx
+*.p12
+*.key
+*.pem
+
+# ==========================================
+# BASE DE DATOS
+# ==========================================
+
+# Respaldos locales de PostgreSQL
+*.backup
+*.dump
+*.bak
+
+# Archivos SQL temporales
+*.sql.tmp
+
+# ==========================================
+# PAQUETES Y DEPENDENCIAS
+# ==========================================
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# ==========================================
+# CONTROL DE VERSIONES
+# ==========================================
+
+# Carpetas Git anidadas
+.git/
+
+# ==========================================
+# OTROS
+# ==========================================
+
+# Publicación local
+publish/
+wwwroot/lib/

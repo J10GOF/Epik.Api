@@ -1,0 +1,6 @@
+@Epik.Api_HostAddress = http://localhost:5215
+
+GET {{Epik.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
