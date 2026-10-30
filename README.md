@@ -1,16 +1,42 @@
 # EPIK - Prueba Técnica | Desarrollador Backend / Frontend
 
+<p align="center">
+  <img src="https://img.shields.io/badge/C%23-.NET%2010-512BD4?logo=dotnet&logoColor=white" alt="C# .NET 10"/>
+  <img src="https://img.shields.io/badge/ASP.NET%20Core-Web%20API-512BD4?logo=dotnet&logoColor=white" alt="ASP.NET Core"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-18-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL 18"/>
+  <img src="https://img.shields.io/badge/Entity%20Framework-Core-512BD4" alt="Entity Framework Core"/>
+  <img src="https://img.shields.io/badge/Status-Completed-success" alt="Completed"/>
+</p>
+
+<p align="center">
+  <b>API REST para la gestión de personas mediante operaciones CRUD.</b>
+</p>
+
+<p align="center">
+  <a href="https://github.com/J10GOF/Epik.Api">Repositorio en GitHub</a>
+</p>
+
+---
+
 ## Descripción
 
-API REST desarrollada en **C# con ASP.NET Core Web API**, diseñada para administrar registros de personas mediante operaciones CRUD (Crear, Consultar, Actualizar y Eliminar).
+API REST desarrollada en **C# con ASP.NET Core Web API**, como solución a la prueba técnica de desarrollo de EPIK.
 
-El proyecto utiliza **PostgreSQL** como sistema de gestión de bases de datos y **Entity Framework Core** como ORM para gestionar el acceso y las operaciones sobre los datos.
+El proyecto permite administrar registros de personas mediante operaciones CRUD (Crear, Consultar, Actualizar y Eliminar).
 
-La solución implementa cinco funcionalidades principales: registro de personas, consulta por identificación, listado de mujeres mediante una vista SQL, actualización exclusiva de la edad y eliminación de registros.
+Utiliza **PostgreSQL** como sistema de gestión de bases de datos y **Entity Framework Core** como ORM para gestionar el acceso y las operaciones sobre los datos.
+
+La solución implementa cinco funcionalidades principales:
+
+- Registro de personas.
+- Consulta de personas mediante identificación.
+- Listado de mujeres utilizando una vista SQL.
+- Actualización exclusiva de la edad.
+- Eliminación de registros mediante identificación.
 
 ## Tecnologías utilizadas
 
-| Tecnología | Descripción |
+| Tecnología | Uso |
 |---|---|
 | C# | Lenguaje de programación |
 | .NET 10 | Plataforma de desarrollo |
@@ -18,18 +44,46 @@ La solución implementa cinco funcionalidades principales: registro de personas,
 | PostgreSQL 18 | Sistema de gestión de bases de datos |
 | Entity Framework Core 10 | ORM para acceso a datos |
 | Npgsql | Proveedor de PostgreSQL para Entity Framework |
-| REST API | Arquitectura de comunicación HTTP |
+| Thunder Client | Pruebas de endpoints HTTP |
+| Git / GitHub | Control de versiones y alojamiento del código |
 
-## Requisitos previos
+## Características principales
 
-Para ejecutar el proyecto se necesita tener instalado:
+- Arquitectura organizada por capas.
+- Separación entre controladores, servicios y acceso a datos.
+- Inyección de dependencias.
+- Operaciones asíncronas mediante `async/await`.
+- Consultas de solo lectura mediante `AsNoTracking()`.
+- Migraciones para administrar la estructura de la base de datos.
+- Gestión segura de credenciales mediante User Secrets.
+- Validación de datos de entrada.
+- Consulta de mujeres mediante una vista SQL de PostgreSQL.
 
-- [.NET SDK 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
-- [PostgreSQL 18](https://www.postgresql.org/download/).
-- [pgAdmin 4](https://www.pgadmin.org/download/) (recomendado para administrar la base de datos).
-- Git (opcional).
+## Arquitectura del proyecto
 
-## Estructura del proyecto
+El proyecto utiliza una arquitectura por capas para separar responsabilidades y facilitar el mantenimiento del código.
+
+```text
+Cliente HTTP
+     |
+     v
+Controllers
+     |
+     v
+Services
+     |
+     v
+Data / Entity Framework Core
+     |
+     v
+PostgreSQL
+     |
+     ├── Tabla Persona
+     |
+     └── Vista vw_mujeres
+```
+
+### Estructura de carpetas
 
 ```text
 Epik.Api/
@@ -53,94 +107,122 @@ Epik.Api/
 │
 ├── Migrations/
 │
-├── Scripts/
-│
 ├── Properties/
 │
 ├── Program.cs
 ├── appsettings.json
+├── appsettings.Development.json
 ├── Epik.Api.csproj
+├── Epik.Api.http
+├── .gitignore
 └── README.md
 ```
 
-## Configuración de la base de datos
+## Requisitos previos
 
-### 1. Crear la base de datos
+Para instalar y ejecutar el proyecto se necesita:
 
-Desde pgAdmin 4 o mediante una consulta SQL, crear una base de datos con el siguiente nombre:
+- [.NET SDK 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
+- [PostgreSQL 18](https://www.postgresql.org/download/).
+- [pgAdmin 4](https://www.pgadmin.org/download/) (recomendado).
+- Git (opcional).
 
-```sql
-CREATE DATABASE epik_db;
-```
+## Instalación y configuración
 
-### 2. Configurar la cadena de conexión
+### 1. Clonar el repositorio
 
-El proyecto utiliza **User Secrets** para almacenar las credenciales de conexión fuera del código fuente.
-
-Abrir una terminal en la carpeta raíz del proyecto y ejecutar:
-
-```bash
-dotnet user-secrets init
-```
-
-Configurar la cadena de conexión:
+Abrir una terminal y ejecutar:
 
 ```bash
-dotnet user-secrets set "ConnectionStrings:Postgres" "Host=localhost;Port=5432;Database=epik_db;Username=postgres;Password=CONTRASEÑA"
+git clone https://github.com/J10GOF/Epik.Api.git
 ```
 
-**Importante:**
+Ingresar a la carpeta del proyecto:
 
-- Reemplazar `postgres` por el nombre del usuario configurado en PostgreSQL, si es diferente.
-- Reemplazar `CONTRASEÑA` por la contraseña correspondiente a ese usuario.
+```bash
+cd Epik.Api
+```
 
-## Instalación y ejecución
+### 2. Restaurar dependencias
 
-### 1. Obtener las dependencias
-
-Desde la terminal, ubicarse en la carpeta `Epik.Api` y ejecutar:
+Ejecutar:
 
 ```bash
 dotnet restore
 ```
 
-### 2. Instalar Entity Framework Core CLI
+### 3. Crear la base de datos
 
-Si la herramienta todavía no está instalada, ejecutar:
+Desde pgAdmin 4 o mediante una consulta SQL, crear una base de datos llamada `epik_db`.
+
+```sql
+CREATE DATABASE epik_db;
+```
+
+### 4. Configurar la cadena de conexión
+
+El proyecto utiliza **User Secrets** para almacenar las credenciales de conexión fuera del código fuente.
+
+Inicializar User Secrets:
+
+```bash
+dotnet user-secrets init
+```
+
+Configurar la conexión a PostgreSQL:
+
+```bash
+dotnet user-secrets set "ConnectionStrings:Postgres" "Host=localhost;Port=5432;Database=epik_db;Username=postgres;Password=TU_CONTRASEÑA"
+```
+
+**Importante:**
+
+- Reemplazar `postgres` por el usuario configurado en PostgreSQL, si es diferente.
+- Reemplazar `TU_CONTRASEÑA` por la contraseña correspondiente.
+- No publicar las credenciales de conexión en GitHub.
+
+### 5. Instalar Entity Framework Core CLI
+
+Si la herramienta todavía no está instalada:
 
 ```bash
 dotnet tool install --global dotnet-ef --version 10.0.14
 ```
 
-### 3. Crear la estructura de la base de datos
+### 6. Crear la estructura de la base de datos
 
-Ejecutar las migraciones para generar automáticamente la tabla `Persona` y la vista `vw_mujeres`:
+Ejecutar las migraciones:
 
 ```bash
 dotnet ef database update
 ```
 
-### 4. Ejecutar la aplicación
+Este comando crea automáticamente los objetos definidos en las migraciones del proyecto:
 
-Iniciar el servidor mediante:
+- Tabla `Persona`.
+- Vista `vw_mujeres`.
+
+### 7. Ejecutar la aplicación
+
+Iniciar el servidor:
 
 ```bash
 dotnet run
 ```
 
-La aplicación se ejecutará en la dirección local indicada en la terminal.
+La API estará disponible en la dirección local indicada por la terminal.
 
 ## Endpoints disponibles
 
-La API dispone de los siguientes endpoints:
+La API dispone de cinco endpoints para administrar los registros de personas.
 
 | Método HTTP | Endpoint | Descripción |
 |---|---|---|
 | POST | `/api/personas` | Registrar una nueva persona. |
-| GET | `/api/personas/{identificacion}` | Consultar una persona por su identificación. |
-| GET | `/api/personas/mujeres` | Listar todas las mujeres mediante la vista SQL. |
-| PUT | `/api/personas/{identificacion}/edad` | Actualizar exclusivamente la edad de una persona. |
-| DELETE | `/api/personas/{identificacion}` | Eliminar una persona por su identificación. |
+| GET | `/api/personas/{identificacion}` | Consultar una persona por identificación. |
+| GET | `/api/personas/mujeres` | Listar mujeres mediante la vista SQL. |
+| PUT | `/api/personas/{identificacion}/edad` | Actualizar exclusivamente la edad. |
+| DELETE | `/api/personas/{identificacion}` | Eliminar una persona por identificación. |
 
 ## Ejemplos de solicitudes
 
@@ -148,7 +230,11 @@ La API dispone de los siguientes endpoints:
 
 **Método:** POST
 
-**Endpoint:** `/api/personas`
+**Endpoint:**
+
+```http
+POST /api/personas
+```
 
 **Body (JSON):**
 
@@ -162,27 +248,45 @@ La API dispone de los siguientes endpoints:
 }
 ```
 
+**Respuesta esperada:** `201 Created`.
+
 ### 2. Consultar una persona
 
 **Método:** GET
 
-**Endpoint:** `/api/personas/100001`
+**Endpoint:**
 
-Permite obtener la información de una persona utilizando su número de identificación.
+```http
+GET /api/personas/100001
+```
+
+Permite consultar la información de una persona mediante su identificación.
+
+**Respuesta esperada:** `200 OK`.
 
 ### 3. Listar mujeres
 
 **Método:** GET
 
-**Endpoint:** `/api/personas/mujeres`
+**Endpoint:**
 
-Esta operación obtiene los registros exclusivamente desde la vista `vw_mujeres` de PostgreSQL.
+```http
+GET /api/personas/mujeres
+```
+
+Obtiene los registros cuyo género es Femenino mediante la vista `vw_mujeres` de PostgreSQL.
+
+**Respuesta esperada:** `200 OK`.
 
 ### 4. Actualizar la edad
 
 **Método:** PUT
 
-**Endpoint:** `/api/personas/100001/edad`
+**Endpoint:**
+
+```http
+PUT /api/personas/100001/edad
+```
 
 **Body (JSON):**
 
@@ -192,15 +296,23 @@ Esta operación obtiene los registros exclusivamente desde la vista `vw_mujeres`
 }
 ```
 
-La operación modifica únicamente el campo `Edad`, manteniendo intactos los demás datos de la persona.
+La operación modifica exclusivamente el campo `Edad`, manteniendo intactos los demás datos de la persona.
+
+**Respuesta esperada:** `204 No Content`.
 
 ### 5. Eliminar una persona
 
 **Método:** DELETE
 
-**Endpoint:** `/api/personas/100001`
+**Endpoint:**
+
+```http
+DELETE /api/personas/100001
+```
 
 Permite eliminar un registro utilizando su número de identificación.
+
+**Respuesta esperada:** `204 No Content`.
 
 ## Estructura de la base de datos
 
@@ -212,7 +324,7 @@ Almacena la información de las personas registradas.
 
 | Campo | Tipo de dato | Restricción |
 |---|---|---|
-| Identificacion | VARCHAR(20) | Primary Key |
+| Identificacion | VARCHAR(20) | PRIMARY KEY |
 | Nombres | VARCHAR(100) | NOT NULL |
 | Apellidos | VARCHAR(100) | NOT NULL |
 | Edad | INTEGER | NOT NULL |
@@ -222,13 +334,47 @@ Almacena la información de las personas registradas.
 
 Vista SQL encargada de consultar exclusivamente los registros cuyo campo `Genero` tiene el valor `Femenino`.
 
-La vista permite separar la consulta de mujeres de las operaciones realizadas directamente sobre la tabla `Persona`.
+Definición de la vista:
 
-El endpoint `GET /api/personas/mujeres` utiliza esta vista mediante Entity Framework Core.
+```sql
+CREATE OR REPLACE VIEW public.vw_mujeres AS
+SELECT
+    "Identificacion",
+    "Nombres",
+    "Apellidos",
+    "Edad",
+    "Genero"
+FROM public."Persona"
+WHERE "Genero" = 'Femenino';
+```
+
+El endpoint `GET /api/personas/mujeres` utiliza esta vista mediante Entity Framework Core, evitando realizar la consulta directamente sobre la tabla desde el servicio.
+
+## Validaciones y respuestas HTTP
+
+La API contempla validaciones y respuestas para diferentes escenarios:
+
+| Código HTTP | Descripción |
+|---|---|
+| 200 | Consulta realizada correctamente. |
+| 201 | Registro creado correctamente. |
+| 204 | Actualización o eliminación exitosa. |
+| 400 | Solicitud con datos inválidos. |
+| 404 | Persona no encontrada. |
+| 409 | Identificación duplicada. |
+
+Entre las validaciones implementadas se encuentran:
+
+- Campos obligatorios.
+- Longitud máxima de la identificación, nombres y apellidos.
+- Edad dentro del rango permitido de 0 a 120.
+- Género limitado a Masculino o Femenino.
+- Control de identificaciones duplicadas.
+- Verificación de existencia antes de actualizar o eliminar.
 
 ## Pruebas realizadas
 
-Las funcionalidades de la API fueron verificadas utilizando **Thunder Client**.
+Las funcionalidades de la API fueron verificadas utilizando **Thunder Client** desde Visual Studio Code.
 
 Se realizaron pruebas para comprobar:
 
@@ -242,8 +388,20 @@ Se realizaron pruebas para comprobar:
 - Consulta de registros inexistentes.
 - Validación de edades y géneros permitidos.
 
+## Repositorio
+
+El código fuente completo se encuentra disponible en GitHub:
+
+**[https://github.com/J10GOF/Epik.Api](https://github.com/J10GOF/Epik.Api)**
+
 ## Autor
 
 **Juan Diego Flórez Lora**
 
 Prueba técnica de desarrollo Backend / Frontend - EPIK.
+
+---
+
+<p align="center">
+  Desarrollado con C#, ASP.NET Core y PostgreSQL.
+</p>
